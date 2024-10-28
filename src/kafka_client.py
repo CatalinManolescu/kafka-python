@@ -1,11 +1,10 @@
-from kafka import KafkaConsumer, KafkaProducer
+import logging
+import os
 import ssl
 
-import logging
-import json
-import os
-
 from dotenv import load_dotenv
+from kafka import KafkaConsumer
+
 load_dotenv(override=False)
 
 logging.basicConfig(level=os.environ.get('LOG_LEVEL', 'ERROR'))
@@ -26,19 +25,10 @@ kafka_config = {
     'sasl_plain_password': os.environ.get('KAFKA_SASL_PASSWORD', ''),
     'ssl_context': ctx
 }
-# kafka_config = {
-#     'bootstrap_servers': os.environ.get('KAFKA_BOOTSTRAP_SERVERS', ''),
-#     'security_protocol': 'SASL_SSL',
-#     'sasl_mechanism': 'SCRAM-SHA-256',
-#     'sasl_plain_username': os.environ.get('KAFKA_SASL_USER', ''),
-#     'sasl_plain_password': os.environ.get('KAFKA_SASL_PASSWORD', ''),
-#     'ssl_cafile': os.environ.get('KAFKA_TRUSTSTORE', ''),
-#     'ssl_check_hostname': False
-# }
 
 # Producer
 # producer = KafkaProducer(**kafka_config)
-# producer.send('TEST_TOPIC', b'some test message - it works')
+# producer.send(os.environ.get('KAFKA_PRODUCER_TOPIC', ''), 'some test message - it works')
 # producer.flush()
 
 # Consumer
@@ -51,4 +41,3 @@ consumer = KafkaConsumer(
 
 for message in consumer:
     print(f"Received message: {message.value}")
-    

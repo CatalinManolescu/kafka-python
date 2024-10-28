@@ -1,7 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
 .env
-.venv
-__*
-ssl/**
+.venv/
+ssl/
+config/*
+!config/.gitkeep
+!config/*.conf
+!config/*.json
+
+logs/*
+!logs/.gitkeep
+*.log
+
 out
 .iml
-config/*
+
+.DS_Store
+Thumbs.db
